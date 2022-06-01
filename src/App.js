@@ -11,7 +11,7 @@ function App() {
   const [hasError, setError] = useState([false]);
 
   useEffect(() => {
-    axios.get("https://localhost:7279/api/Clip")
+    axios.get(process.env.REACT_APP_API_URL +"/api/Clip")
         .then(res => {
 
           var _res = Object.values(res.data);
@@ -33,7 +33,7 @@ function App() {
     if(name === '') return
     else{
       let ids = GetSelectedClips();
-      axios.post("https://localhost:7279/api/ReelClip", {ids, name})
+      axios.post(process.env.REACT_APP_API_URL + "/api/ReelClip", {ids, name})
       .then(res =>{
         console.log(res.data);
       }).catch(err =>{
@@ -61,7 +61,7 @@ function App() {
       setTimeCode("");
 
       if(ids.length > 0){
-        axios.post("https://localhost:7279/api/ReelClip/Calculate", ids)
+        axios.post(process.env.REACT_APP_API_URL + "/api/ReelClip/Calculate", ids)
         .then(res => {
           setTimeCode("Total TimeCode: " +  res.data);
           setPageValidity(true);
